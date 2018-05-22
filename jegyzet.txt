@@ -1,0 +1,47 @@
+osztályok:
+
+	tábla:
+		-osztólapok
+		-játékoslapok		
+	játékos:		
+		-pénz
+		-lapok		
+		+tét
+		+pénznyer
+		+lapotkér
+		+megáll
+	osztó:
+		-lapok
+		+lapotad
+	kártyák:
+		-lapok
+		2->10;J,D,K,A
+
+
+függvények:
+	játékos()
+	tétrakás()	
+	tábla()
+	értékelés()
+
+folyamat:
+tábla()-
+	|
+	ˇ
+tétrakás()-> játékos:tét
+	|
+	ˇ
+laprakás()-> kártyák:lapok - rnd * 2 -> tábla:játékoslapok,osztólapok 
+	|		^					|
+	ˇ		|(csak a játékos)			|
+játékos()->játékos: lapotkér| megáll				|
+				|(csak az osztó)		|
+				ˇ				l---->
+				laprakás()->tábla:osztólapok--------->értékelés()--> új játék
+									|									
+									ˇ
+								- 21-osztolap>21-jatekoslap
+								- 21<jatekoslap
+								- 21-osztolap=21-jatekoslap --> a tét marad, új játék.
+
+
