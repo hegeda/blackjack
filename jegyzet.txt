@@ -57,3 +57,9 @@ for i in jatekos.lapok:
 
 jatekos.lapok.append(random.choice(lapok.values()))
 
+>>> random.choice(lapok.items())
+('4', 4)
+>>> osztas={}
+>>> osztas=random.choice(lapok.items())
+>>> print osztas
+
