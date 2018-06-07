@@ -3,12 +3,11 @@
 import os
 import random
 
-lapok = {'2': 2,'3': 3,'4': 4,'5': 5,'6': 6,'7': 7,'8': 8,'9': 9,'10': 10,'J': 10,'D': 10,'K': 10,'A': 11}
+kartyak = {'2': 2,'3': 3,'4': 4,'5': 5,'6': 6,'7': 7,'8': 8,'9': 9,'10': 10,'J': 10,'D': 10,'K': 10,'A': 11}
 vege = False
-osszeg = 0
 
 class Jatekos(object):
-	def __init__(self,penz,lapok={}):
+	def __init__(self,penz,lapok=[]):
 		self.penz=penz
 		self.lapok=lapok
 	
@@ -18,18 +17,19 @@ class Jatekos(object):
 		return stop
 	
 def ertekel():
-	if osszeg > 21:
-		print 'Veszettél! A lapok összege: ', osszeg 		
-	jatek()
+	global vege
+	if sum(jatekos.lapok) > 21:
+		print 'Veszettél! A lapok összege: ', sum(jatekos.lapok)
+		vege = True
+	else:
+		jatek()
 
 def jatek():
-	jatekos = Jatekos(1000)
-	lap = random.choice(lapok.items())
-	jatekos.lapok.append(random.choice(lap.values()))
-	print lap.keys
- 	for i in jatekos.lapok:
-		ossz=ossz+i
+	lap = random.choice(kartyak.items())
+	jatekos.lapok.append(lap[1])
+	print lap[0]
 	ertekel()	
 
 while not vege:
+	jatekos = Jatekos(1000)
 	jatek()
