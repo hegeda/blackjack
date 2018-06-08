@@ -12,8 +12,8 @@ osztályok:
 		+megáll
 	osztó:
 		-lapok
-		+lapotad
 	kártyák:
+		+lapotad
 		-lapok
 		2->10;J,D,K,A
 
