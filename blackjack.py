@@ -11,11 +11,6 @@ class Jatekos(object):
                 self.penz = penz
                 self.lapok = lapok
 
-
-class Oszto(object):
-        def __init__(self, penz, lapok=[]):
-                self.lapok = lapok
-
 def ertekel():
         global vege
         osszeg_jatekos = sum(jatekos.lapok)
@@ -76,6 +71,6 @@ def osztohuz():
         osztolapker()
 
 while not vege:
-        jatekos = Jatekos(1000)
-        oszto = Oszto(0)
+        jatekos = Jatekos(1000,[])
+        oszto = Jatekos(0,[])
         jatek()
