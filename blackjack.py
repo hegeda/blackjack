@@ -38,7 +38,7 @@ def ertekel():
         print 'Vesztettél!'
         print 'Játékos lapjainak összege: ', sum(jatekos.lapok)
         print 'Osztó lapjainak összege: ', sum(oszto.lapok)
-        jatekvege()next
+        jatekvege()
 
 def lapotker():
     re = raw_input("Kér lapot?: (i/n)")
