@@ -4,14 +4,15 @@ import os
 import random
 clear = lambda: os.system('clear')
 vege = False
+lapok = {'2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, '10': 10, 'J': 10, 'D': 10,
+                 'K': 10, 'A': 11}
 
 class Kartya(object):
-    def __init__(self):
-        pass
+    def __init__(self,kartyak):
+        self.kartyak = kartyak
     def lap(self):
-        lapok = {'2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, '10': 10, 'J': 10, 'D': 10,
-                 'K': 10, 'A': 11}
-        kartya = random.choice(lapok.items())
+
+        kartya = random.choice(self.kartyak.items())
         return kartya
 
 class Jatekos(object):
@@ -117,7 +118,7 @@ def init():
 
 jatekos = Jatekos(1000, 0, 0, [])
 oszto = Jatekos(0, 0, 0, [])
-kartya = Kartya()
+kartya = Kartya(lapok)
 
 
 while not vege:
@@ -162,6 +163,3 @@ while not vege:
         if oszto.osszeg > 21:
             break
     ertekel()
-
-
-
