@@ -53,16 +53,13 @@ class Asztal(object):
         print 'Pénz: ', self.penz
         print 'Tét: ', self.tet
         print 'Lapok', self.j_lapok
-        #print 'összeg: ', josszeg
 
     def o_rajzol(self):
         clear()
         print 'Pénz: ', self.penz
         print 'Tét: ', self.tet
         print 'Lapok:', self.j_lapok
-        #print 'összeg:', josszeg
         print 'Osztó:', self.o_lapok
-        #print 'osztóösszeg: ', oosszeg
 
 def ertekel():
     if jatekos.osszeg > 21:
@@ -137,14 +134,11 @@ while not vege:
         jatekos.penz = jatekos.penz - jatekos.tet
         jatekos.lapothuz(kartya.lap())
 
-    #asztal = Asztal(penz=jatekos.penz, tet=jatekos.tet, j_lapok=jatekos.lapok, o_lapok=oszto.lapok,j_laposszeg=sum(jatekos.lapok), o_laposszeg=sum(oszto.lapok))
     asztal = Asztal(penz=jatekos.penz, tet=jatekos.tet, josszeg=jatekos.osszeg, oosszeg=oszto.osszeg,
                     j_lapok=jatekos.lapok, o_lapok=oszto.lapok)
-    #asztal.j_rajzol(jatekos.osszeg)
     asztal.j_rajzol()
     while jatekos.lapotker() == 'i':
         jatekos.lapothuz(kartya.lap())
-        #asztal.j_rajzol(jatekos.osszeg)
         asztal.j_rajzol()
         if jatekos.osszeg > 21:
             break
@@ -154,11 +148,9 @@ while not vege:
         continue
 
     oszto.lapothuz(kartya.lap())
-    #asztal.o_rajzol(jatekos.osszeg, oszto.osszeg)
     asztal.o_rajzol()
-    while oszto.osszeg <= 17:
+    while oszto.osszeg < 17:
         oszto.lapothuz(kartya.lap())
-        #asztal.o_rajzol(jatekos.osszeg,oszto.osszeg)
         asztal.o_rajzol()
         if oszto.osszeg > 21:
             break
