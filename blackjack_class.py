@@ -10,8 +10,8 @@ lapok = {'2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, '10': 1
 class Kartya(object):
     def __init__(self,kartyak):
         self.kartyak = kartyak
-    def lap(self):
 
+    def lap(self):
         kartya = random.choice(self.kartyak.items())
         return kartya
 
