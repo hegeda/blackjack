@@ -2,18 +2,21 @@
 # coding=utf-8
 import os
 import random
+from time import sleep
+
 clear = lambda: os.system('clear')
 vege = False
 lapok = {'2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, '10': 10, 'J': 10, 'D': 10,
-                 'K': 10, 'A': 11}
+         'K': 10, 'A': 11}
 
 class Kartya(object):
-    def __init__(self,kartyak):
+    def __init__(self, kartyak):
         self.kartyak = kartyak
 
     def lap(self):
         kartya = random.choice(self.kartyak.items())
         return kartya
+
 
 class Jatekos(object):
     def __init__(self, penz, tet, osszeg, lapok=[], ertek=[]):
@@ -29,10 +32,10 @@ class Jatekos(object):
         self.tet = rak
         return self.tet
 
-    def lapothuz(self,lap):
+    def lapothuz(self, lap):
         self.lapok.append(lap[0])
         self.ertek.append(lap[1])
-        self.osszeg=sum(self.ertek)
+        self.osszeg = sum(self.ertek)
 
     def lapotker(self):
         valasz = raw_input("Kér lapot?: (i/n)")
@@ -61,6 +64,7 @@ class Asztal(object):
         print 'Lapok:', self.j_lapok
         print 'Osztó:', self.o_lapok
 
+
 def ertekel():
     if jatekos.osszeg > 21:
         print 'Veszettél! A lapok összege: ', jatekos.osszeg
@@ -85,6 +89,7 @@ def ertekel():
         tovabb()
         jatekvege()
 
+
 def tovabb():
     global vege
     valasz = raw_input("--tovább|q: kilép--")
@@ -103,6 +108,7 @@ def jatekvege():
     if jatekos.penz == 0:
         vege = True
 
+
 def init():
     clear()
     jatekos.lapok = []
@@ -113,45 +119,49 @@ def init():
     oszto.osszeg = 0
 
 
+def main():
+    while not vege:
+        init()
+        tet = jatekos.tetrakas()
+
+        if tet < 100:
+            print 'Minimum 100!'
+            tovabb()
+            continue
+        elif tet > jatekos.penz:
+            print 'Nincs elég pénzed!'
+            tovabb()
+            continue
+        else:
+            jatekos.penz = jatekos.penz - jatekos.tet
+            jatekos.lapothuz(kartya.lap())
+
+        asztal = Asztal(penz=jatekos.penz, tet=jatekos.tet, josszeg=jatekos.osszeg, oosszeg=oszto.osszeg,
+                        j_lapok=jatekos.lapok, o_lapok=oszto.lapok)
+        asztal.j_rajzol()
+        while jatekos.lapotker() == 'i':
+            jatekos.lapothuz(kartya.lap())
+            asztal.j_rajzol()
+            if jatekos.osszeg > 21:
+                break
+
+        if jatekos.osszeg > 21:
+            ertekel()
+            continue
+
+        oszto.lapothuz(kartya.lap())
+        asztal.o_rajzol()
+        while oszto.osszeg < 17:
+            sleep(1)
+            oszto.lapothuz(kartya.lap())
+            asztal.o_rajzol()
+            if oszto.osszeg > 21:
+                break
+        ertekel()
+
 jatekos = Jatekos(1000, 0, 0, [])
 oszto = Jatekos(0, 0, 0, [])
 kartya = Kartya(lapok)
 
-
-while not vege:
-    init()
-    tet = jatekos.tetrakas()
-
-    if tet < 100:
-        print 'Minimum 100!'
-        tovabb()
-        continue
-    elif tet > jatekos.penz:
-        print 'Nincs elég pénzed!'
-        tovabb()
-        continue
-    else:
-        jatekos.penz = jatekos.penz - jatekos.tet
-        jatekos.lapothuz(kartya.lap())
-
-    asztal = Asztal(penz=jatekos.penz, tet=jatekos.tet, josszeg=jatekos.osszeg, oosszeg=oszto.osszeg,
-                    j_lapok=jatekos.lapok, o_lapok=oszto.lapok)
-    asztal.j_rajzol()
-    while jatekos.lapotker() == 'i':
-        jatekos.lapothuz(kartya.lap())
-        asztal.j_rajzol()
-        if jatekos.osszeg > 21:
-            break
-
-    if jatekos.osszeg > 21:
-        ertekel()
-        continue
-
-    oszto.lapothuz(kartya.lap())
-    asztal.o_rajzol()
-    while oszto.osszeg < 17:
-        oszto.lapothuz(kartya.lap())
-        asztal.o_rajzol()
-        if oszto.osszeg > 21:
-            break
-    ertekel()
+if __name__ == "__main__":
+    main()
